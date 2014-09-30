@@ -3,10 +3,11 @@ package com.tmersov.wsclient
 import akka.actor.ActorSystem
 import akka.testkit.{TestActorRef, TestProbe}
 import com.typesafe.config.ConfigFactory
+import org.junit.runner.RunWith
+import org.scalatest.junit.JUnitRunner
 import org.scalatest.matchers.ShouldMatchers
 import org.scalatest.path
 import org.specs2.mock.Mockito
-
 import scala.concurrent.duration._
 
 
@@ -16,6 +17,7 @@ import scala.concurrent.duration._
  * Date: 11/3/13
  * Time: 12:49 PM
  */
+@RunWith(classOf[JUnitRunner])
 class WebSocketConnectorSpec extends path.FunSpec with ShouldMatchers with Mockito {
 
   describe("WebSocket") {
