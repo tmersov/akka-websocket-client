@@ -10,6 +10,16 @@ import org.eclipse.jetty.websocket.api.Session
 import org.eclipse.jetty.websocket.api.annotations._
 import org.eclipse.jetty.websocket.client.{ClientUpgradeRequest, WebSocketClient}
 
+
+sealed trait WebSocketState
+object WebSocketState {
+  case object UninitializedState extends WebSocketState
+  case object ConnectingState extends WebSocketState
+  case object ConnectedState extends WebSocketState
+  case object ClosingState extends WebSocketState
+  case object ClosedState extends WebSocketState
+}
+
 //Exceptions
 private class SocketUnhandledException(msg: String = null, cause: Throwable = null) extends Exception(msg, cause)
 private class SocketClosingException(msg: String = null, cause: Throwable = null) extends Exception(msg, cause)
