@@ -13,9 +13,9 @@ sealed trait Reply extends Message
 sealed trait Request extends Message
 
 //Request messages
-case class Connect(uri: String, subscriber: ActorRef) extends Request
-case class Close() extends Request
-case class Connected(session: ActorRef) extends Reply
+case object Connect extends Request
+case object Close extends Request
+case class Connected(session: WebSocketSession) extends Reply
 
 trait DataMessage extends Request with Reply
 case class TextMessage(text: String) extends DataMessage
