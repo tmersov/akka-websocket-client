@@ -48,9 +48,9 @@ class WebSocketConnection private[wsclient](uri: String, subscriber: ActorRef, w
   protected var session: Session = null
   protected val messageLog = Logging(context.system, this.getClass.getSimpleName + ".messages")
 
-  override def postRestart(reason: Throwable): Unit = {
+  override def postRestart(reason: Throwable) = {
     log.info("Restarting...")
-    super.preStart()
+    super.postRestart(reason)
     self ! Connect
   }
 
@@ -113,12 +113,12 @@ class WebSocketConnection private[wsclient](uri: String, subscriber: ActorRef, w
       goto(ClosingState)
   }
 
-  def clearData() = {
+  private def clearData() = {
     this.session = null
     this.client = null
   }
 
-  def stopClient() = {
+  private def stopClient() = {
     try {
       if (this.session != null) this.session.close()
       else if (this.client != null) client.stop()
@@ -127,7 +127,7 @@ class WebSocketConnection private[wsclient](uri: String, subscriber: ActorRef, w
     }
   }
 
-  def connect(uri: String) {
+  private def connect(uri: String) {
     client = new WebSocketClient
     client.start()
     val uriObj = new URI(uri)
